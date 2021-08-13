@@ -2,6 +2,12 @@
    if($_SESSION['status']!=="1"){
       echo "<script>window.location.href='/'</script>";
    }
+   if(!$_SESSION['status']){
+    $_SESSION['open']='yes';
+ }
+ if($_SESSION['status']){
+  $_SESSION['open'] = 'no';
+}
 ?>
 <?php
   require "db_conect.php";

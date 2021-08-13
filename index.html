@@ -193,33 +193,40 @@
                <input  name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                <label for="exampleInputEmail1">Number</label>
                <input  name="phone"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-               <label for="exampleInputPassword1">Pnone</label>
-               <input name="pnone" type="number" class="form-control" id="exampleInputPassword1" required>
-           </div>
-           <div class="date-container">
-               <div class="label">
-                    <label for="exampleInputEmail1">Number of rooms</label>
-                    <label for="exampleInputEmail1">Number of people</label>
-               </div>
-                <div class="date">
-                            <input  type="number" name="number_of_rooms"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-                            <input  type="number" name="number_of_people"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+               <select name="room" class="form-control rooms-select">
+                    <option value="0">Кількість людей</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+               </select>
+               <select style='display: none;' name='rooms' class="form-control rooms">
+                   
+               </select>
+               <div style="display: none" class="booking-table">
+                <p class="booking-table-title">
+                    Виберіть дату
+                </p>
+                <div class="booking-table-content">
+
                 </div>
-                <div class="label">
-                    <label for="exampleInputEmail1">From</label>
-                    <label for="exampleInputEmail1">To</label>
-               </div>
-              <div class="date">
-                    <input  name="from" type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-                    <input  name="to" type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-              </div>
-               
-               
-     </div>
+                <div class="booking-btns">
+                    <div class="prev">
+                        Prev
+                    </div>
+                    <div class="next">
+                        Next
+                    </div>
+                </div>
+            </div>
+
+                <!-- <button  value=true name="button" type="submit" class="btn btn-primary">Submit</button> -->
+
+           </div>
+           
+                    </div>
               
                
           
-           <button  value=true name="button" type="submit" class="btn btn-primary">Submit</button>
        </form>
    </div>
    </div>

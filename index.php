@@ -161,7 +161,7 @@
               </div> 
             </form>
 </div>
-<div <?php  ?> class="form-user-login-popap <?php if($open=='yes'){echo 'form-user-login-popap-active';}?>">
+<div <?php $open=$_SESSION['open']; ?> class="form-user-login-popap <?php if($open=='yes'){echo 'form-user-login-popap-active';}?>">
            <div class="register">
                <div class="popap-login-close">
                    <i style=" color: white; pointer-event :none; font-size: 20px;" class="fas fa-times login-close"></i>

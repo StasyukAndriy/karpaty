@@ -490,6 +490,47 @@ input{
 .width{
    width: 100%;
 }
+.booking-table-content{
+   background: #eaeaea;
+   justify-content: space-between;
+   padding: 8px;
+   display: flex;
+   flex-wrap: wrap;
+}
+
+.booking-table-day{
+   width: 19%;
+   height: 30px;
+   background: #c1cbd5;
+   margin-bottom: 6px;
+   color: #333;
+   font-size: 18px;
+}
+
+.booking-table-title{
+   color: #fff;
+   padding: 10px 0 15px;
+   background: #103475;
+   font-size: 20px;
+   margin-bottom: 0px;
+}
+
+.booking-btns{
+   display: flex;
+   padding: 10px 20px;
+   /* display: flex; */
+   justify-content: space-between;
+   background: #103475;
+}
+
+.prev , .next {
+   background: #fff;
+   width: 60px;
+   height: 30px;
+   border-radius: 5px;
+   cursor: pointer;
+}
+
 @keyframes cardAnimationLeft {
    from{
       transform: translateX(-200%);
