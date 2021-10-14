@@ -1,11 +1,11 @@
 <?php session_start(); 
    
-   if(!$_SESSION['status']){
-     $_SESSION['open'] = 'yes';
-   }
-   if($_SESSION['status']){
-    $_SESSION['open'] = 'no';
-  }
+  //  if(!$_SESSION['status']){
+  //    $_SESSION['open'] = 'yes';
+  //  }
+  //  if($_SESSION['status']){
+  //   $_SESSION['open'] = 'no';
+  // }
    if($_SESSION['status']!=="1"){
     echo "<script>window.location.href='/'</script>";
  }
@@ -34,6 +34,13 @@
           </li>
           <li>
             <a href="products.php">Продукти</a>
+          </li>
+          
+          <li>
+          <a href='price.php'>Ціни</a>
+          </li>
+          <li>
+          <a href='card_info.php'>Карточки</a>
           </li>
           <li>
           <a href='exit.php' class="register-href"><p class="login-off-user-button a-paragrap">Вийти</p></a>

@@ -12,9 +12,9 @@
 <?php 
   $email = $_SESSION['email'];
  require 'db_conect.php';
-  $result = $mysqli->query("SELECT * FROM orders WHERE `email` LIKE '%".$email."%'");
+  $result = $mysqli->query('SELECT * FROM orders WHERE `email`='.'"'.$email.'"');
   $order = mysqli_fetch_array($result);
-  if(empty($$order)):
+  if(empty($order)):
   ?>
   <header class="header">
     <div class="container">
@@ -34,15 +34,13 @@
   <table class="table">
   <thead>
     <tr>
-      <th scope="col">Id замовлення</th>
       <th scope="col">Ім'я</th>
       <th scope="col">Прізвище</th>
       <th scope="col">Емейл</th>
       <th scope="col">Номер телефону</th>
-      <th scope="col">День заїзду</th>
-      <th scope="col">День виїзду</th>
+      <th scope="col">Дати</th>
       <th scope="col">Кількість людей</th>
-      <th scope="col">Кількість кімнат</th>
+      <th scope="col">Вид кімнати</th>
     </tr>
   </thead>
   <tbody>
@@ -51,20 +49,19 @@
      ?>
       <tr>
         <!-- <th scope="row">1</th> -->
-        <td><?php echo $order["Id"]; ?></td>
         <td><?php echo $order["firstname"]; ?></td>
         <td><?php echo $order['lastname']; ?></td>
         <td><?php echo $order['email']; ?></td>
         <td><?php echo $order['mobile']; ?></td>
-        <td><?php echo $order['day_from']; ?></td>
-        <td><?php echo $order['day_to']; ?></td>
+        <td><?php echo $order['dates']; ?></td>
         <td><?php echo $order['number_of_people']; ?></td>
         <td><?php echo $order['number_of_rooms']; ?></td>
-        <td> <a href='u-users.php?id=<?php echo $order["Id"]; ?>'>Редагування</a> </td>
-        <td> <a href='d-users.php?id=<?php echo $order["Id"]; ?>'>Видалення</a> </td>
+        <td> <a href='update.php?id=<?php echo $order["Id"]; ?>'>Редагування</a> </td>
+        <td> <a href='delete.php?id=<?php echo $order["Id"]; ?>'>Видалення</a> </td>
       </tr>
       <?php
       }
+      
      ?>
     
 </body>

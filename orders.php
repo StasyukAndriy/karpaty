@@ -1,4 +1,5 @@
 <?php session_start(); 
+
    if($_SESSION['status']!=="1"){
       echo "<script>window.location.href='/'</script>";
    }
@@ -8,6 +9,8 @@
  if($_SESSION['status']){
   $_SESSION['open'] = 'no';
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,10 +63,9 @@
       <th scope="col">Lastname</th>
       <th scope="col">Email</th>
       <th scope="col">Phone</th>
-      <th scope="col">Date-from</th>
-      <th scope="col">Date-to</th>
       <th scope="col">Number_of_people</th>
-      <th scope="col">Number_of_rooms</th>
+      <th scope="col">Number_of_room</th>
+      <th scope="col">Дати</th>
 
 
     </tr>
@@ -85,10 +87,9 @@
         <td><?php echo $value['lastname']; ?></td>
         <td><?php echo $value['email']; ?></td>
         <td><?php echo $value['mobile']; ?></td>
-        <td><?php echo $value['day_from']; ?></td>
-        <td><?php echo $value['day_to']; ?></td>
         <td><?php echo $value['number_of_people']; ?></td>
         <td><?php echo $value['number_of_rooms']; ?></td>
+        <td><?php echo $value['dates']; ?></td>
   
   
   

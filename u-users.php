@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,11 +24,15 @@
     </div>
   </header>
 
-<?php $id = $_GET['id'];
+<?php 
+if($_SESSION['status']!=="1"){
+  echo "<script>window.location.href='/'</script>";
+}
+$id = $_GET['id'];
 require "db_conect.php";  
 $mysql="SELECT  `firstname`, `lastname`, `email`, `password`, `phone` FROM `users` WHERE `id`=".$id;
 
-// var_dump("SELECT  `firstname`, `lastname`, `email`, `mobile`, `day_from`, `day_to`, `number_of_people`, `number_of_rooms` FROM `orders` WHERE `id`=".$id);
+var_dump("SELECT  * FROM `users` WHERE `id`=".$id);
 $result = $mysqli->query($mysql);
 $row=mysqli_fetch_array($result);
 // var_dump($row["firstname"]);

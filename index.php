@@ -1,11 +1,7 @@
 <?php session_start(); ?>
 <?php 
-      $open = $_GET['open'];
       if($_SERVER['HTTP_REFERER'] == 'http://karpaty1/register-users.php'){
           echo '<script>alert("Такий користувач існує")</script>';
-      }
-      if($_SERVER['HTTP_REFERER'] == 'http://karpaty1/check_user.php'){
-          echo '<script>alert("Такого користувача не існує")</script>';
       }
       require 'db_conect.php';
       $result = $mysqli->query('SELECT * FROM products');
@@ -13,7 +9,22 @@
       while($products = mysqli_fetch_array($result)){
           $row[]=$products;
       }
+      if($_SESSION['once_reg']){
+        $_SESSION['same_email'] = false;
+        $_SESSION['open_register'] = 'no';
+        
+        
+      }
+      if($_SESSION['once_log']){
+        $_SESSION['open'] = 'no';
+        $_SESSION['wrong'] = false;
+      }
       
+      
+      if($_SESSION['open_update']){
+          $result = $mysqli->query("SELECT  * FROM `orders` WHERE `Id`=".$_SESSION['id']);
+          $res = mysqli_fetch_array($result);
+      }
  ?>
 <!-- Hello!!!!!! -->
 <html>
@@ -138,23 +149,29 @@
     </footer>    
     </div>
 
- <div class="form-user-popap">
+ <div <?php $open_reg=$_SESSION['open_register']; ?> class="<?php if($open_reg=='yes'){echo 'form-user-popap-active ';} ?>form-user-popap">
            <div class="register">
                <div class="popap-close">
                    <i style=" color: white; pointer-event :none; font-size: 20px;" class="fas fa-times register-close"></i>
                </div>
             <form class="black" method="POST" action="register-users.php">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Firstname</label>
-                    <input  name="firstname"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                    <label  for="exampleInputEmail1">Firstname</label>
+                    <input value='<?php if($_SESSION['same_email']){echo $_SESSION['first_reg'];} ?>' name="firstname"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                     <label for="exampleInputEmail1">Lastname</label>
-                    <input  name="lastname"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                    <input value='<?php if($_SESSION['same_email']){echo $_SESSION['last_reg'];} ?>' name="lastname"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                     <label for="exampleInputEmail1">Email address</label>
-                    <input  name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                    <input value='<?php if($_SESSION['same_email']){echo $_SESSION['email_reg'];} ?>' name="email" type="email" class="<?php if($_SESSION['same_email']){echo 'same_email ';}?>form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                    <div class='same_email_text'><?php if($_SESSION['same_email']){
+                         echo 'Ця пошта вже використовувалася';
+                         $_SESSION['once_reg'] = true;
+                    } else{
+                        $_SESSION['once_reg'] = false;
+                    }?></div>
                     <label for="exampleInputEmail1">Password</label>
-                    <input  name="password"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                    <input value='<?php if($_SESSION['same_email']){echo $_SESSION['pass_reg'];} ?>' name="password"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                     <label for="exampleInputPassword1">Pnone</label>
-                    <input name="phone" class="form-control" id="exampleInputPassword1" required>
+                    <input value='<?php if($_SESSION['same_email']){echo $_SESSION['phone_reg'];} ?>' name="phone" class="form-control" id="exampleInputPassword1" required>
                     <button value="true" name="button-users" type="submit" class=" btn btn-primary">Submit</button>
                     
                 </div>
@@ -168,58 +185,101 @@
                </div>
             <form class="black" method="POST" action="check_user.php">
                 <div class="form-group">
+                
                     <label for="exampleInputEmail1">Email address</label>
-                    <input  name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                    <input value='<?php if($_SESSION['wrong']){echo $_SESSION['wrong_email'];}?>' name="email" type="email" class="<?php if($_SESSION['wrong']){echo 'same_email ';}?>form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                    
                     <label for="exampleInputEmail1">Password</label>
-                    <input  name="password"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                    <input  value='<?php if($_SESSION['wrong']){echo $_SESSION['wrong_password'];}?>' name="password"  class="<?php if($_SESSION['wrong']){echo 'same_email ';}?>form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                     <button value="true" name="button-users" type="submit" class=" btn btn-primary">Submit</button>
+                    <div class='same_email_text'><?php if($_SESSION['wrong']){
+                         echo 'Неправильний логін або пароль';
+                         $_SESSION['once_log'] = true;
+                    } else{
+                        $_SESSION['once_log'] = false;
+                    }?></div>
+                    
                 </div>
               </div> 
             </form>
 </div>
    
-   <div class="form-popap">
+   <div class="<?php if($_SESSION['open_update']){echo 'form-popap-active';}?> form-popap">
        <div class="register">
            <div class="popap-close">
                <i style=" color: white; pointer-event :none; font-size: 20px;" class="fas fa-times"></i>
            </div>
-       <form class="black" method="POST" action="register.php">
+              <form data-update="<?php if($_SESSION['open_update']){echo 'update';}?>" class="order_up black" name="order" method="POST" action="<?php if($_SESSION['open_update']){echo 'update_order.php';}else{echo 'register.php';}?>">
            <div class="form-group">
                <label for="exampleInputEmail1">Firstname</label>
-               <input  name="firstname"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+               <input value='<?php if($_SESSION['open_update']){echo $res['firstname'];}?>'  name="firstname"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                <label for="exampleInputEmail1">Lastname</label>
-               <input  name="lastname"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+               <input value='<?php if($_SESSION['open_update']){echo $res['lastname'];}?>' name="lastname"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                <label for="exampleInputEmail1">Email address</label>
-               <input  name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+               <input value='<?php if($_SESSION['open_update']){echo $res['email'];}?>' name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                <label for="exampleInputEmail1">Number</label>
-               <input  name="phone"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-               <label for="exampleInputPassword1">Pnone</label>
-               <input name="pnone" type="number" class="form-control" id="exampleInputPassword1" required>
-           </div>
-           <div class="date-container">
-               <div class="label">
-                    <label for="exampleInputEmail1">Number of rooms</label>
-                    <label for="exampleInputEmail1">Number of people</label>
-               </div>
-                <div class="date">
-                            <input  type="number" name="number_of_rooms"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-                            <input  type="number" name="number_of_people"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+               <input value='<?php if($_SESSION['open_update']){echo $res['mobile'];}?>' name="phone"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+               <select name="room" class="form-control rooms-select">
+                   <?php 
+                   $option_arr = ['Кількість людей', '1', '2', '3', '4', '5', '6'];
+                    if($_SESSION['open_update']){
+                        $option_update_arr = [];
+                        foreach($option_arr as $key=>$value){
+                            if($res['number_of_people']==$value){
+                                array_unshift($option_update_arr, $value);
+                            } else{
+                                $option_update_arr[]=$value;
+                            }
+                        }
+                    }
+                   ?><?php if($_SESSION['open_update']){foreach($option_update_arr as $key=>$value):  ?>
+                    <option value='<?php echo $value;?>'><?php 
+                    echo $value;?></option>
+                    <?php 
+                     endforeach;
+                    } else{
+                        foreach($option_arr as $key=>$value):  
+                   ?>
+                    <option value='<?php echo $key;?>'><?php 
+                            echo $value;?></option>
+                            <?php 
+                             endforeach;
+                            }
+                             ?>
+               </select>
+               <select style='display: none;' name='rooms' class="form-control rooms">
+                   
+               </select>
+               <div style="display: none" class="booking-table">
+                <p class="booking-table-title">
+                    Виберіть дату
+                </p>
+                <div class='data-number'></div>
+                <div class="booking-table-content">
+                      
                 </div>
-                <div class="label">
-                    <label for="exampleInputEmail1">From</label>
-                    <label for="exampleInputEmail1">To</label>
-               </div>
-              <div class="date">
-                    <input  name="from" type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-                    <input  name="to" type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-              </div>
+                <div class="booking-btns">
+                    <div class="prev">
+                        Prev
+                    </div>
+                    
+                    <div class="next">
+                        Next
+                    </div>
+                </div>
+            </div>
+        <div style='display: none;' class="price">
+            
+            <div>
+                <p class="price_number"></p>
+            </div>
+        </div>    
                
-               
-     </div>
+     <!-- </div> -->
               
                
           
-           <button  value=true name="button" type="submit" class="btn btn-primary">Submit</button>
+           <button  value=true name="<?php if($_SESSION['open_update']){echo 'button_update';}else{echo 'button';}?>" type="submit" class="btn btn-primary <?php if($_SESSION['open_update']){echo 'update';} else{echo 'order';}?>"><?php if($_SESSION['open_update']){echo 'Оновити';}else{echo 'Відправити';}?></button>
        </form>
    </div>
    </div>

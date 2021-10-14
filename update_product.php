@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +25,12 @@
     </div>
   </header>
 
-<?php $id = $_GET['id'];
+<?php
+if($_SESSION['status']!=="1"){
+  echo "<script>window.location.href='/'</script>";
+}
+$id = $_GET['id'];
+
 require "db_conect.php";  
 $mysql="SELECT  `title`, `image`, `text`, `fade` FROM `products` WHERE `id`=".$id;
 

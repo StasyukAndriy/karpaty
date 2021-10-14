@@ -1,4 +1,4 @@
-<?php
+<?php session_start()?>
   $id = $_GET['id'];
   require 'db_conect.php';
   $result = $mysqli->query('SELECT *  FROM `portfolio_products` WHERE Id='.$id);

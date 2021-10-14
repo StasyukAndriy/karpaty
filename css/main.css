@@ -84,6 +84,14 @@ margin-right: auto;
    transition-duration: 1s;
    transition-property: transform;
 }
+
+.price{
+   display: flex;
+   color: white;
+   font-size: 25px;
+   justify-content: space-around;
+}
+
 .header-title{
    font-weight: bold;
    font-size: 56px;
@@ -244,7 +252,19 @@ color: rgba(0,0,0,.1);
    display: block;
 }
 
+.date-booked{
+   pointer-events: none !important;
+   background-color: #000000 !important;
+}
 
+.same_email{
+   border: 2px solid red!important;
+}
+.same_email_text{
+   font-size: 18px;
+   color: red;
+   margin-bottom: 10px;
+}
 
 .footer-info span{
    display: block;
@@ -497,7 +517,11 @@ input{
    display: flex;
    flex-wrap: wrap;
 }
-
+.data-number{
+   color: white;
+   font-size: 20px;
+   margin-bottom: 0;
+}
 .booking-table-day{
    width: 19%;
    height: 30px;
@@ -505,6 +529,15 @@ input{
    margin-bottom: 6px;
    color: #333;
    font-size: 18px;
+}
+.booking-btn-unactive{
+   background: #f93a3a;
+   color: #fff;
+}
+
+.booking-btn-active{
+   color: #fff;
+   background: #cd8f1e;
 }
 
 .booking-table-title{
